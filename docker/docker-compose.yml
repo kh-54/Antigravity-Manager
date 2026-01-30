@@ -1,11 +1,15 @@
 services:
   antigravity-manager:
-    image: lbjlaq/antigravity-manager:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: antigravity-manager
     ports:
       - "8045:8045"
     volumes:
       - ~/.antigravity_tools:/root/.antigravity_tools
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     environment:
       - LOG_LEVEL=info
       - API_KEY=your-secret-key  # [重要] 請設置您的安全密鑰，若不設置則在日誌中查看隨機密鑰
